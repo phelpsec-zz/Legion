@@ -12,7 +12,12 @@ public class EnemyHealth : MonoBehaviour
 
     private Image healthBar;
 
+    private EnemyCombat combat;
+    private PlayerCombat playerCombat;
+
     private EnemyStats stats;
+
+    private GameController game;
 
     void Awake()
     {
@@ -22,6 +27,11 @@ public class EnemyHealth : MonoBehaviour
         enemyHealthBar = Instantiate(enemyHealthBarPrefab, new Vector3(transform.position.x, transform.position.y + transform.lossyScale.y, transform.position.z), transform.rotation);
 
         healthBar = enemyHealthBar.transform.Find("Enemy Health").GetComponent<Image>();
+
+        combat = GetComponent<EnemyCombat>();
+        playerCombat = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>();
+
+        game = GameObject.Find("Game").GetComponent<GameController>();
     }
 
     void Start()
@@ -30,7 +40,19 @@ public class EnemyHealth : MonoBehaviour
     }
 
     void Update()
-    {   
+    {
+        if (currentHealth <= 0)
+        {
+            combat.IsAggrovated = false;
+            playerCombat.IsInCombat = false;
+            Death();
+        }
+
+        if (currentHealth <= maxHealth)
+        {
+            currentHealth -= 10 * Time.deltaTime;
+        }
+
         float healthPercentage = currentHealth / maxHealth;
         healthBar.transform.localScale = new Vector3(healthPercentage, healthBar.transform.localScale.y, healthBar.transform.localScale.z);
     }
@@ -38,5 +60,12 @@ public class EnemyHealth : MonoBehaviour
     void LateUpdate()
     {
         enemyHealthBar.transform.position = new Vector3(transform.position.x, transform.position.y + transform.lossyScale.y, transform.position.z);
+    }
+
+    void Death()
+    {
+        Destroy(enemyHealthBar);
+        Destroy(gameObject);
+        game.EnemyDeath();
     }
 }

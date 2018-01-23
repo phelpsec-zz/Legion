@@ -32,7 +32,7 @@ public class GameController : MonoBehaviour
 
     void SpawnWave()
     {
-        waveCount += 1f;
+        waveCount += 1;
         enemyCount = Random.Range(5, 31);
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -50,10 +50,10 @@ public class GameController : MonoBehaviour
         }
     }
 
-    void EnemyDeath()
+    public void EnemyDeath()
     {
-        enemyCount -= 1f;
-        if (enemyCount <= 0f)
+        enemyCount -= 1;
+        if (enemyCount <= 0)
         {
             timeToSpawn = Time.time + waveSpawnTimer;
         }
