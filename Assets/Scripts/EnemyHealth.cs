@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
-    private float maxHealth = 100f;
+    private float maxHealth = 100;
     private float currentHealth;
 
     private GameObject enemyHealthBarPrefab;
@@ -12,9 +12,11 @@ public class EnemyHealth : MonoBehaviour
 
     private Image healthBar;
 
-    void Start()
+    private EnemyStats stats;
+
+    void Awake()
     {
-        currentHealth = maxHealth;
+        stats = GetComponent<EnemyStats>();
 
         enemyHealthBarPrefab = (Resources.Load("Prefabs/Enemy Health Bar")) as GameObject;
         enemyHealthBar = Instantiate(enemyHealthBarPrefab, new Vector3(transform.position.x, transform.position.y + transform.lossyScale.y, transform.position.z), transform.rotation);
@@ -22,11 +24,19 @@ public class EnemyHealth : MonoBehaviour
         healthBar = enemyHealthBar.transform.Find("Enemy Health").GetComponent<Image>();
     }
 
+    void Start()
+    {
+        currentHealth = maxHealth; 
+    }
+
     void Update()
+    {   
+        float healthPercentage = currentHealth / maxHealth;
+        healthBar.transform.localScale = new Vector3(healthPercentage, healthBar.transform.localScale.y, healthBar.transform.localScale.z);
+    }
+
+    void LateUpdate()
     {
         enemyHealthBar.transform.position = new Vector3(transform.position.x, transform.position.y + transform.lossyScale.y, transform.position.z);
-
-        float healthPercentage = currentHealth / maxHealth;
-        healthBar.rectTransform.localScale = new Vector3(healthPercentage, healthBar.transform.localScale.y, healthBar.transform.localScale.z);
     }
 }

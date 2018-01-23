@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class UIController : MonoBehaviour {
+public class UIController : MonoBehaviour
+{
 
     private GameObject deathScreen;
     private GameObject respawnButton;
@@ -9,39 +10,36 @@ public class UIController : MonoBehaviour {
 
     public GameObject DeathScreen { get { return deathScreen; } }
 
-    void Awake() {
-
+    void Awake()
+    {
         deathScreen = GameObject.Find("Death Screen");
         respawnButton = GameObject.Find("Respawn Button");
         exitGameButton = GameObject.Find("Exit Game Button");
     }
 
-    void Start() {
-
+    void Start()
+    {
         deathScreen.SetActive(false);
+    }
+
+
+    void Update()
+    {
 
     }
 
-    
-    void Update() {
-
-    }
-
-    public void RespawnButton() {
-
+    public void RespawnButton()
+    {
         deathScreen.SetActive(false);
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        HealthManager healthManager = player.GetComponent<HealthManager>();
+        PlayerHealth healthManager = player.GetComponent<PlayerHealth>();
 
         healthManager.Respawn();
-
-        //Debug.Log("Player clicked Respawn.");
     }
 
-    public void ExitGameButton() {
-
-        //Debug.Log("Player clicked Exit.");
+    public void ExitGameButton()
+    {
 
     }
 }

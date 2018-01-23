@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
-
     private Vector3 destinationPosition;
-    private HealthManager healthManager;
+    private PlayerHealth healthManager;
 
-    private float baseMovementSpeed = 15f;
+    private float baseMovementSpeed = 15;
 
     private float MovementSpeed { get { return baseMovementSpeed; } set { } }
 
     void Awake()
     {
-        healthManager = GetComponent<HealthManager>();
+        healthManager = GetComponent<PlayerHealth>();
     }
 
     void Start()

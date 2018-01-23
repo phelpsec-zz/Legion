@@ -2,24 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour {
-
+public class CameraController : MonoBehaviour
+{
     private GameObject player;
 
     private Vector3 offsetFromPlayer;
 
-    void Awake() {
-
+    void Awake()
+    {
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    void Start () {
-        
+    void Start()
+    {
         offsetFromPlayer = transform.position - player.transform.position;
-	}
-	
-	void LateUpdate () {
+    }
 
+    void LateUpdate()
+    {
         transform.position = player.transform.position + offsetFromPlayer;
     }
 }
