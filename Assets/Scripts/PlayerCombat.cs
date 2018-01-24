@@ -18,7 +18,8 @@ public class PlayerCombat : MonoBehaviour
     void Awake()
     {
         uiController = GameObject.Find("UI").GetComponent<UIController>();
-        projectileSpawnPrefab = (Resources.Load("Prefabs/Projectile Spawn")) as GameObject;  
+        projectileSpawnPrefab = (Resources.Load("Prefabs/Projectile Spawn")) as GameObject;
+        projectileSpawn = Instantiate(projectileSpawnPrefab, gameObject.transform);
     }
 
     void Start()

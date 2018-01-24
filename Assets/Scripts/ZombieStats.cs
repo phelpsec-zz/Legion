@@ -5,6 +5,6 @@ public class ZombieStats : EnemyStats
 {
     void Start()
     {
-        BaseVitality = 5;
+        BaseVitality = 10;
     }
 }

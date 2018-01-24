@@ -11,9 +11,4 @@ public class WizardStats : PlayerStats
         BaseIntellect = 35;
         BaseVitality = 30;
     }
-
-    void Update()
-    {
-
-    }
 }
