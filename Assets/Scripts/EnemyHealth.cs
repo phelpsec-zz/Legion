@@ -48,10 +48,10 @@ public class EnemyHealth : MonoBehaviour
             Death();
         }
 
-        if (currentHealth <= maxHealth)
-        {
-            currentHealth -= 10 * Time.deltaTime;
-        }
+        //if (currentHealth <= maxHealth)
+        //{
+        //    currentHealth -= 10 * Time.deltaTime;
+        //}
 
         float healthPercentage = currentHealth / maxHealth;
         healthBar.transform.localScale = new Vector3(healthPercentage, healthBar.transform.localScale.y, healthBar.transform.localScale.z);
@@ -60,6 +60,11 @@ public class EnemyHealth : MonoBehaviour
     void LateUpdate()
     {
         enemyHealthBar.transform.position = new Vector3(transform.position.x, transform.position.y + transform.lossyScale.y, transform.position.z);
+    }
+
+    public void TakeDamage(float damageAmount)
+    {
+        currentHealth -= damageAmount;
     }
 
     void Death()

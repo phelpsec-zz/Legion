@@ -7,19 +7,4 @@ public class EnemyStats : MonoBehaviour
     protected float BaseVitality { get { return baseVitality; } set { baseVitality = value; } }
 
     public float BaseHealth { get { return baseVitality * 5; } }
-
-    void Awake()
-    {
-
-    }
-
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-
-    }
 }

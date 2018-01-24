@@ -9,6 +9,7 @@ public class PlayerResource : MonoBehaviour
     private float resourceRegenerationRate;
     private float resourceDegenerationRate;
     private float resourceGenerateOnReceiveHit;
+    private float resourceGenerateOnDealHit;
 
     protected GameObject resourceBar;
     private GameObject resourceBarBackground;
@@ -18,6 +19,7 @@ public class PlayerResource : MonoBehaviour
     protected float ResourceRegenerationRate { get { return resourceRegenerationRate; } set { resourceRegenerationRate = value; } }
     protected float ResourceDegenerationRate { get { return resourceDegenerationRate; } set { resourceDegenerationRate = value; } }
     public float ResourceGenerateOnReceiveHit { get { return resourceGenerateOnReceiveHit; } set { resourceGenerateOnReceiveHit = value; } }
+    public float ResourceGenerateOnDealHit { get { return resourceGenerateOnDealHit; } set { resourceGenerateOnDealHit = value; } }
 
     void Awake()
     {
@@ -49,7 +51,7 @@ public class PlayerResource : MonoBehaviour
         currentResource += resourceGenerateOnReceiveHit;
     }
 
-    void GenerateResourceOnHitDealt(float resourceAmount)
+    public void GenerateResourceOnHitDealt(float resourceAmount)
     {
         currentResource += resourceAmount;
     }

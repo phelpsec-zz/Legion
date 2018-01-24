@@ -21,10 +21,10 @@ public class BarbarianResource : PlayerResource
 
     void Start()
     {
-        StartingResource = 50;
+        StartingResource = 0;
 
         ResourceRegenerationRate = 0;
-        ResourceDegenerationRate = 1;
+        ResourceDegenerationRate = 0.5f;
         ResourceGenerateOnReceiveHit = 5;
     }
 
