@@ -7,6 +7,8 @@ public class PlayerHealth : MonoBehaviour
 {
     private float maxHealth;
     private float currentHealth;
+    public float CurrentHealth { get { return currentHealth; } }
+    public float MaxHealth { get { return maxHealth; } }
 
     private bool isDead;
     public bool IsDead { get { return isDead; } set { isDead = value; } }

@@ -16,6 +16,7 @@ public class EnemyHealth : MonoBehaviour
     private PlayerCombat playerCombat;
     private EnemyStats stats;
     private GameController game;
+    private PlayerExperience playerExperience;
 
     void Awake()
     {
@@ -25,6 +26,7 @@ public class EnemyHealth : MonoBehaviour
         playerCombat = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCombat>();
         stats = GetComponent<EnemyStats>();       
         game = GameObject.Find("Game").GetComponent<GameController>();
+        playerExperience = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerExperience>();
     }
 
     void Start()
@@ -63,6 +65,7 @@ public class EnemyHealth : MonoBehaviour
     {
         Destroy(enemyHealthBar);
         Destroy(gameObject);
+        playerExperience.AddToExperience(stats.ExperienceAmount);
         game.EnemyDeath();
     }
 }

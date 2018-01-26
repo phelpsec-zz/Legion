@@ -9,9 +9,6 @@ public class PlayerStats : MonoBehaviour
     private float baseIntellect;
     private float baseVitality;
 
-    private float level;
-    //private float experience;
-
     protected float BaseStrength { get { return baseStrength; } set { baseStrength = value; } }
     protected float BaseDexterity { get { return baseDexterity; } set { baseDexterity = value; } }
     protected float BaseIntellect { get { return baseIntellect; } set { baseIntellect = value; } }
@@ -19,7 +16,6 @@ public class PlayerStats : MonoBehaviour
 
     public float BaseHealth { get { return baseVitality * 5; } }
     public float BaseHealthRegenRate { get { return baseVitality / 15; } }
-    public float Experience { get; set; }
 
     void Awake()
     {
