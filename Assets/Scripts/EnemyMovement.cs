@@ -3,11 +3,9 @@ using System.Collections;
 
 public class EnemyMovement : MonoBehaviour
 {
-    private float movementSpeed;
-    protected float MovementSpeed { get { return movementSpeed; } set { movementSpeed = value; } }
+    protected float MovementSpeed { get; set; }
 
     private float timeToWander;
-
     private float timeToNextAttack;
 
     private Vector3 destinationPosition;

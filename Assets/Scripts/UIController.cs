@@ -10,6 +10,9 @@ public class UIController : MonoBehaviour
     private GameObject resourceDisplayText;
     private Text resourceDisplay;
 
+    private GameObject levelDisplayText;
+    private Text levelDisplay;
+
     private GameObject deathScreen;
     private GameObject respawnButton;
     private GameObject exitGameButton;
@@ -17,11 +20,12 @@ public class UIController : MonoBehaviour
     private GameObject activeSkillPanel;
     private GameObject activeSkillButton;
 
-    public GameObject DeathScreen { get { return deathScreen; } }
+    public GameObject DeathScreen { get; set; }
 
     private GameObject player;
     private PlayerHealth playerHealth;
     private PlayerResource playerResource;
+    private PlayerExperience playerExperience;
 
     void Awake()
     {
@@ -30,6 +34,9 @@ public class UIController : MonoBehaviour
 
         resourceDisplayText = GameObject.Find("Resource Display Text");
         resourceDisplay = resourceDisplayText.GetComponent<Text>();
+
+        levelDisplayText = GameObject.Find("Level Display Text");
+        levelDisplay = levelDisplayText.GetComponent<Text>();
 
         deathScreen = GameObject.Find("Death Screen");
         respawnButton = GameObject.Find("Respawn Button");
@@ -40,6 +47,7 @@ public class UIController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerHealth>();
         playerResource = player.GetComponent<PlayerResource>();
+        playerExperience = player.GetComponent<PlayerExperience>();
     }
 
     void Start()
@@ -54,6 +62,7 @@ public class UIController : MonoBehaviour
     {
         healthDisplay.text = ((int)playerHealth.CurrentHealth + " / " + (int)playerHealth.MaxHealth).ToString();
         resourceDisplay.text = ((int)playerResource.CurrentResource + " / 100").ToString();
+        levelDisplay.text = ((int)playerExperience.Level).ToString();
     }
 
     public void RespawnButton()

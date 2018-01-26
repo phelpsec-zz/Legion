@@ -5,31 +5,24 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    private float maxHealth;
-    private float currentHealth;
-    public float CurrentHealth { get { return currentHealth; } }
-    public float MaxHealth { get { return maxHealth; } }
-
-    private bool isDead;
-    public bool IsDead { get { return isDead; } set { isDead = value; } }
+    public float CurrentHealth { get; set; }
+    public float MaxHealth { get; set; }
+    public bool IsDead { get; set; }
+    public bool IsRespawning { get; set; }
 
     private float timeToRespawn;
-    private float respawnTimer = 3;
-
-    private bool isRespawning;
-    public bool IsRespawning { get { return isRespawning; } set { isRespawning = value; } }
+    private int respawnTimer = 3;
 
     private GameObject healthBar;
-    private UIController uiController;
+    private GameObject deathScreen;
     private PlayerResource resource;
     private PlayerStats stats;
     private PlayerCombat combat;
-
     
     void Awake()
     {
         healthBar = GameObject.Find("Health");
-        uiController = GameObject.Find("UI").GetComponent<UIController>();
+        deathScreen = GameObject.Find("Death Screen");
         resource = GetComponent<PlayerResource>();
         stats = GetComponent<PlayerStats>();
         combat = GetComponent<PlayerCombat>();
@@ -37,55 +30,54 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-        maxHealth = stats.BaseHealth;
-        currentHealth = maxHealth;
+        //TODO: Eventually, MaxHealth will be BaseHealth + any Vitality from future equipped items.
+        MaxHealth = stats.BaseHealth;
+        CurrentHealth = MaxHealth;
     }
 
     void Update()
     {
-        currentHealth = currentHealth >= maxHealth ? maxHealth : currentHealth;
+        CurrentHealth = CurrentHealth >= MaxHealth ? MaxHealth : CurrentHealth;
 
-        if (currentHealth <= 0)
+        if (CurrentHealth <= 0)
         {
-            currentHealth = 0;
-            isDead = true;
+            CurrentHealth = 0;
+            IsDead = true;
             resource.CurrentResource = 0;
             GetComponent<Rigidbody>().detectCollisions = false;
-            uiController.DeathScreen.SetActive(true);
+            deathScreen.SetActive(true);
         }
         else
         {
-            if (currentHealth < maxHealth && !combat.IsInCombat)
+            if (CurrentHealth < MaxHealth && !combat.IsInCombat)
             {
-                currentHealth += stats.BaseHealthRegenRate * Time.deltaTime;
-                //currentHealth -= 50 * Time.deltaTime;
+                CurrentHealth += stats.BaseHealthRegenRate * Time.deltaTime;
             }
             
-            if (isRespawning && Time.time >= timeToRespawn)
+            if (IsRespawning && Time.time >= timeToRespawn)
             {
-                isRespawning = false;
+                IsRespawning = false;
                 GetComponent<Rigidbody>().detectCollisions = true;
             }
         }
 
-        float healthPercentage = currentHealth / maxHealth;
+        float healthPercentage = CurrentHealth / MaxHealth;
         healthBar.transform.localScale = new Vector3(healthPercentage, healthBar.transform.localScale.y, healthBar.transform.localScale.z);
     }
 
     public void Respawn()
     {
-        isDead = false;
-        currentHealth = maxHealth;
+        IsDead = false;
+        CurrentHealth = MaxHealth;
 
-        isRespawning = true;
+        IsRespawning = true;
         timeToRespawn = Time.time + respawnTimer;
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damageAmount)
     {
-        currentHealth -= damage;
+        CurrentHealth -= damageAmount;
 
-        PlayerResource resource = GetComponent<PlayerResource>();
         if (resource.ResourceGenerateOnReceiveHit > 0)
         {
             resource.GenerateResourceOnHitReceived();

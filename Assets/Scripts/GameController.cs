@@ -3,25 +3,22 @@ using System.Collections;
 
 public class GameController : MonoBehaviour
 {
+    private float EnemyCount { get; set; }
+    private float WaveCount { get; set; }
+
+    private float timeToSpawn;
+    private float spawnTimer = 5;
+
     private GameObject enemyPrefab;
-    private Vector3 spawnLocation;
 
-    private Vector3 playerLocation;
-
-    private float timeToSpawn = 0;
-    private float enemySpawnTimer = 2;
-    private float enemyCount = 0;
-    private float waveSpawnTimer = 5;
-    private float waveCount = 0;
-
-    void Start()
+    void Awake()
     {
         enemyPrefab = (Resources.Load("Prefabs/Zombie")) as GameObject;
     }
 
     void Update()
     {
-        if (enemyCount <= 0)
+        if (EnemyCount <= 0)
         {
             if (Time.time >= timeToSpawn)
             {
@@ -32,30 +29,31 @@ public class GameController : MonoBehaviour
 
     void SpawnWave()
     {
-        waveCount += 1;
-        enemyCount = Random.Range(5, 31);
+        WaveCount += 1;
+        EnemyCount = Random.Range(5, 16);
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         Vector3 playerLocation = player.transform.position;
 
-        for (int i = 0; i < enemyCount; i++)
+        for (int i = 0; i < EnemyCount; i++)
         {
             float angle = Random.Range(0, Mathf.PI * 2);
             Vector3 randomRangeFromPlayer = new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle));
-            randomRangeFromPlayer *= Random.Range(22, 75);
+            randomRangeFromPlayer *= Random.Range(25, 60);
 
-            spawnLocation = playerLocation - randomRangeFromPlayer;
+            Vector3 spawnLocation = playerLocation - randomRangeFromPlayer;
 
-            Instantiate(enemyPrefab, spawnLocation, Quaternion.identity);
+            GameObject enemy = Instantiate(enemyPrefab, spawnLocation, Quaternion.identity);
         }
     }
 
     public void EnemyDeath()
     {
-        enemyCount -= 1;
-        if (enemyCount <= 0)
+        EnemyCount -= 1;
+
+        if (EnemyCount <= 0)
         {
-            timeToSpawn = Time.time + waveSpawnTimer;
+            timeToSpawn = Time.time + spawnTimer;
         }
     }
 }

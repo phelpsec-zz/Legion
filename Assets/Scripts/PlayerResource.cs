@@ -5,27 +5,17 @@ using UnityEngine.UI;
 
 public class PlayerResource : MonoBehaviour
 {
-    private float currentResource;
-    private float resourceRegenerationRate;
-    private float resourceDegenerationRate;
-    private float resourceGenerateOnReceiveHit;
-    private float resourceGenerateOnDealHit;
+    public string ResourceName { get; set; }
+    public float CurrentResource { get; set; }
+    protected float ResourceRegenerationRate { get; set; }
+    protected float ResourceDegenerationRate { get; set; }
+    public float ResourceGenerateOnReceiveHit { get; set; }
 
     protected GameObject resourceBar;
-    private GameObject resourceBarBackground;
-
-    protected float StartingResource { set { currentResource = value; } }
-    public float CurrentResource { get { return currentResource; } set { currentResource = value; } }
-    protected float ResourceRegenerationRate { get { return resourceRegenerationRate; } set { resourceRegenerationRate = value; } }
-    protected float ResourceDegenerationRate { get { return resourceDegenerationRate; } set { resourceDegenerationRate = value; } }
-    public float ResourceGenerateOnReceiveHit { get { return resourceGenerateOnReceiveHit; } set { resourceGenerateOnReceiveHit = value; } }
-    public float ResourceGenerateOnDealHit { get { return resourceGenerateOnDealHit; } set { resourceGenerateOnDealHit = value; } }
 
     void Awake()
     {
         resourceBar = GameObject.Find("Resource");
-        resourceBarBackground = GameObject.Find("Resource Background");
-        resourceBarBackground.GetComponent<Image>().color = new Color32(30, 30, 30, 255);
     }
 
     void Start()
@@ -35,34 +25,32 @@ public class PlayerResource : MonoBehaviour
 
     protected virtual void Update()
     {
-        currentResource += (ResourceRegenerationRate - ResourceDegenerationRate) * Time.deltaTime;
-        currentResource = currentResource < 0 ? 0 : currentResource;
-        currentResource = currentResource > 100 ? 100 : currentResource;
+        CurrentResource += (ResourceRegenerationRate - ResourceDegenerationRate) * Time.deltaTime;
+        CurrentResource = CurrentResource < 0 ? 0 : CurrentResource;
+        CurrentResource = CurrentResource > 100 ? 100 : CurrentResource;
 
-        float resourcePercentage = currentResource / 100;
+        float resourcePercentage = CurrentResource / 100;
         resourceBar.transform.localScale = new Vector3(resourcePercentage, resourceBar.transform.localScale.y, resourceBar.transform.localScale.z);
     }
 
-
-    //TODO: Implement spell resource generation.
-
     public void GenerateResourceOnHitReceived()
     {
-        currentResource += resourceGenerateOnReceiveHit;
+        CurrentResource += ResourceGenerateOnReceiveHit;
     }
 
     public void GenerateResourceOnHitDealt(float resourceAmount)
     {
-        currentResource += resourceAmount;
+        CurrentResource += resourceAmount;
     }
 
+    //TODO: Implement spell resource generation/degeneration on spell casts.
     void GenerateResourceOnSpellCast(float resourceAmount)
     {
-        currentResource += resourceAmount;
+        CurrentResource += resourceAmount;
     }
 
     void DegenerateResourceOnSpellCast(float resourceAmount)
     {
-        currentResource -= resourceAmount;
+        CurrentResource -= resourceAmount;
     }
 }

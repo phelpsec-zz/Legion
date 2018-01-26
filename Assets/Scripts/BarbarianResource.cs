@@ -21,8 +21,8 @@ public class BarbarianResource : PlayerResource
 
     void Start()
     {
-        StartingResource = 0;
-
+        ResourceName = "Rage";
+        CurrentResource = 0;
         ResourceRegenerationRate = 0;
         ResourceDegenerationRate = 0.5f;
         ResourceGenerateOnReceiveHit = 5;

@@ -8,8 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerHealth healthManager;
 
     private float baseMovementSpeed = 15;
-
-    private float MovementSpeed { get { return baseMovementSpeed; } set { } }
+    private float MovementSpeed { get; set; }
 
     void Awake()
     {
@@ -18,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        //TODO: Include Movement Speed from future items.
+        MovementSpeed = baseMovementSpeed;
         destinationPosition = transform.position;
     }
 

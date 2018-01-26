@@ -16,6 +16,8 @@ public class EnemyCombat : MonoBehaviour
     public bool IsAggrovated { get { return isAggrovated; } set { isAggrovated = value; } }
     protected float UnAggroTimer { get { return unAggroTimer; } set { unAggroTimer = value; } }
 
+    protected float Damage { get; set; }
+
     GameObject player;
     PlayerHealth playerHealth;
     PlayerCombat playerCombat;

@@ -4,28 +4,10 @@ using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
 {
-    private bool isInCombat;
-    public bool IsInCombat { get { return isInCombat; } set { isInCombat = value; } }
+    public bool IsInCombat { get; set; }
 
     private float timeToNextAttack;
     private float globalCooldownTimer = 0.5f;
-
-    private GameObject projectileSpawnPrefab;
-    private GameObject projectileSpawn;
-
-    protected UIController uiController;
-
-    void Awake()
-    {
-        uiController = GameObject.Find("UI").GetComponent<UIController>();
-        projectileSpawnPrefab = (Resources.Load("Prefabs/Projectile Spawn")) as GameObject;
-        projectileSpawn = Instantiate(projectileSpawnPrefab, gameObject.transform);
-    }
-
-    void Start()
-    {
-        
-    }
 
     void Update()
     {
@@ -33,17 +15,14 @@ public class PlayerCombat : MonoBehaviour
         {
             if (Time.time >= timeToNextAttack)
             {
+                //TODO: Implement specific spell cooldowns into the timeToNextAttack formula.
                 timeToNextAttack = Time.time + globalCooldownTimer;
                 Attack();
             }                 
         }
     }
-    
-    protected virtual void GetActiveSkill()
-    {
 
-    }
-
+    //TODO: Get the active spell from the UI Active Spell Button (Implement this on each class's Attack method).
     protected virtual void Attack()
     {
         

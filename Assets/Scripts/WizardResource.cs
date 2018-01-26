@@ -17,8 +17,8 @@ public class WizardResource : PlayerResource
 
     void Start()
     {
-        StartingResource = 20;
-
+        ResourceName = "Energy";
+        CurrentResource = 100;
         ResourceRegenerationRate = 12;
         ResourceDegenerationRate = 0;
         ResourceGenerateOnReceiveHit = 0;
