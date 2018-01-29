@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -11,4 +12,6 @@ public class PlayerStats : MonoBehaviour
 
     public int BaseHealth { get { return BaseVitality * 5; } }
     public float BaseHealthRegenRate { get { return BaseVitality / 15; } }
+
+    public Image CharacterPortrait { get; set; }
 }

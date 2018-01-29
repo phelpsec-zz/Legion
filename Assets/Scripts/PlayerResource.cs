@@ -49,7 +49,7 @@ public class PlayerResource : MonoBehaviour
         CurrentResource += resourceAmount;
     }
 
-    void DegenerateResourceOnSpellCast(float resourceAmount)
+    void SpendResourceOnSpellCast(float resourceAmount)
     {
         CurrentResource -= resourceAmount;
     }

@@ -28,19 +28,13 @@ public class PlayerMovement : MonoBehaviour
         {
             if ((Input.GetMouseButtonDown(1) || Input.GetMouseButton(1)) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
             {
-                Plane playerPlane = new Plane(Vector3.up, transform.position);
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                float distance;
-
-                if (playerPlane.Raycast(ray, out distance))
-                {
-                    destinationPosition = ray.GetPoint(distance);
-                    transform.rotation = Quaternion.LookRotation(destinationPosition - transform.position);
-                }
+                LookAtMousePosition();
             }
 
             if (Input.GetKey(KeyCode.LeftShift))
             {
+                LookAtMousePosition();
+
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
                 destinationPosition = transform.position;
             }
@@ -53,6 +47,19 @@ public class PlayerMovement : MonoBehaviour
         {
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             destinationPosition = transform.position;
+        }
+    }
+
+    void LookAtMousePosition()
+    {
+        Plane playerPlane = new Plane(Vector3.up, transform.position);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        float distance;
+
+        if (playerPlane.Raycast(ray, out distance))
+        {
+            destinationPosition = ray.GetPoint(distance);
+            transform.rotation = Quaternion.LookRotation(destinationPosition - transform.position);
         }
     }
 }
