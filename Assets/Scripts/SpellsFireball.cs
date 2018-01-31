@@ -1,22 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpellsFireball : SpellsManager
+public class SpellsFireball : Spells
 {
     private Vector3 startPosition;
-    private GameObject player;
-    private PlayerResource playerResource;
+
+    private SpellsFireball(string spellName, bool isActive, int resourceCost, int resourceGenerate) 
+        : base(spellName, isActive, resourceCost, resourceGenerate) { }
 
     void Start()
     {
         Damage = Random.Range(20, 31);
-
-        Speed = 60;
-        Range = 30;
-        ResourceCost = 1;
+        Speed = 50;
+        Range = 40;
 
         startPosition = transform.position;
-
         GetComponent<Rigidbody>().velocity = transform.forward * Speed;
     }
 

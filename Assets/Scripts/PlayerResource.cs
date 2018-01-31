@@ -43,13 +43,12 @@ public class PlayerResource : MonoBehaviour
         CurrentResource += resourceAmount;
     }
 
-    //TODO: Implement spell resource generation/degeneration on spell casts.
-    void GenerateResourceOnSpellCast(float resourceAmount)
+    public void GenerateResourceOnSpellCast(float resourceAmount)
     {
         CurrentResource += resourceAmount;
     }
 
-    void SpendResourceOnSpellCast(float resourceAmount)
+    public void SpendResourceOnSpellCast(float resourceAmount)
     {
         CurrentResource -= resourceAmount;
     }

@@ -11,15 +11,25 @@ public class PlayerCombat : MonoBehaviour
 
     protected GameObject spellSpawnPrefab;
     protected GameObject spellSpawn;
-
     protected Transform spellSpawnLocation;
-    private Vector3 destinationPosition;
+
+    protected GameObject player;
+    protected PlayerResource playerResource;
+
+    public List<Spells> spells;
+    public Spells activeSpell;
+
+    protected string activeSpellName;
+    protected GameObject activeSpellPrefab;
 
     protected virtual void Awake()
     {
         spellSpawnPrefab = Resources.Load("Prefabs/Spell Spawn") as GameObject;
         spellSpawn = Instantiate(spellSpawnPrefab, transform);
         spellSpawnLocation = spellSpawn.transform;
+
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerResource = player.GetComponent<PlayerResource>();
     }
 
     void Update()

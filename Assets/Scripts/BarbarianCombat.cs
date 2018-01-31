@@ -3,32 +3,47 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class BarbarianCombat : PlayerCombat
-{
-    private float meleeHitDistance = 6;
-    private float damage;
-
-    private GameObject activeSpell;
-    
-    private GameObject spellsBashPrefab;
-    private GameObject spellsFireballPrefab;
+{  
 
     protected override void Awake()
     {
         base.Awake();
-        spellsBashPrefab = (Resources.Load("Prefabs/Bash")) as GameObject;
-        spellsFireballPrefab = (Resources.Load("Prefabs/Fireball")) as GameObject;
+
+        spells = new List<Spells>();
+        spells.Add(new Spells("Bash", false, 0, 0));
+        spells.Add(new Spells("Fireball", true, 6, 0));
+        spells.Add(new Spells("Ground Stomp", false, 20, 0));
     }
 
     protected override void Attack()
     {
-        //GetActiveSpell();
-
         //TODO: Get the spell from the Active Skill slot and instantiate it.
-        Instantiate(spellsBashPrefab, spellSpawnLocation.position, spellSpawnLocation.rotation);
+        GetActiveSpell();
+
+        //TODO: Check to make sure the spell we instantiate doesn't cost more resource than the player has.
+
+        if (playerResource.CurrentResource >= activeSpell.ResourceCost)
+        {
+            Instantiate(activeSpellPrefab, spellSpawnLocation.position, spellSpawnLocation.rotation);
+
+            playerResource.GenerateResourceOnSpellCast(activeSpell.ResourceGenerate);
+            playerResource.SpendResourceOnSpellCast(activeSpell.ResourceCost);
+        }
     }
 
-    //private GameObject GetActiveSpell()
-    //{
-    //    return activeSpell;
-    //}
+    private GameObject GetActiveSpell()
+    {
+
+        for (int i = 0; i < spells.Count; i++)
+        {
+            if (spells[i].IsActive)
+            {
+                activeSpellName = spells[i].SpellName;
+                activeSpell = spells[i];
+            }
+        }
+
+        activeSpellPrefab = Resources.Load("Prefabs/" + activeSpellName) as GameObject;
+        return activeSpellPrefab;
+    }
 }
