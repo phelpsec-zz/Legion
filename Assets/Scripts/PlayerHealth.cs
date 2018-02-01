@@ -9,11 +9,11 @@ public class PlayerHealth : MonoBehaviour
     public float MaxHealth { get; set; }
     public bool IsDead { get; set; }
     public bool IsRespawning { get; set; }
+    public float HealthPercentage { get { return CurrentHealth / MaxHealth; } }
 
     private float timeToRespawn;
     private int respawnTimer = 3;
 
-    private GameObject healthBar;
     private GameObject deathScreen;
     private PlayerResource resource;
     private PlayerStats stats;
@@ -21,7 +21,6 @@ public class PlayerHealth : MonoBehaviour
     
     void Awake()
     {
-        healthBar = GameObject.Find("Health");
         deathScreen = GameObject.Find("Death Screen");
         resource = GetComponent<PlayerResource>();
         stats = GetComponent<PlayerStats>();
@@ -60,9 +59,6 @@ public class PlayerHealth : MonoBehaviour
                 GetComponent<Rigidbody>().detectCollisions = true;
             }
         }
-
-        float healthPercentage = CurrentHealth / MaxHealth;
-        healthBar.transform.localScale = new Vector3(healthPercentage, healthBar.transform.localScale.y, healthBar.transform.localScale.z);
     }
 
     public void Respawn()

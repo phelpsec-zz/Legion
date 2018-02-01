@@ -11,26 +11,15 @@ public class PlayerResource : MonoBehaviour
     protected float ResourceDegenerationRate { get; set; }
     public float ResourceGenerateOnReceiveHit { get; set; }
 
+    public float ResourcePercentage { get { return CurrentResource / 100; } }
+
     protected GameObject resourceBar;
-
-    void Awake()
-    {
-        resourceBar = GameObject.Find("Resource");
-    }
-
-    void Start()
-    {
-
-    }
 
     protected virtual void Update()
     {
         CurrentResource += (ResourceRegenerationRate - ResourceDegenerationRate) * Time.deltaTime;
         CurrentResource = CurrentResource < 0 ? 0 : CurrentResource;
         CurrentResource = CurrentResource > 100 ? 100 : CurrentResource;
-
-        float resourcePercentage = CurrentResource / 100;
-        resourceBar.transform.localScale = new Vector3(resourcePercentage, resourceBar.transform.localScale.y, resourceBar.transform.localScale.z);
     }
 
     public void GenerateResourceOnHitReceived()

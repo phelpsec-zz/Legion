@@ -22,7 +22,7 @@ public class PlayerCombat : MonoBehaviour
     protected string activeSpellName;
     protected GameObject activeSpellPrefab;
 
-    protected virtual void Awake()
+    void Awake()
     {
         spellSpawnPrefab = Resources.Load("Prefabs/Spell Spawn") as GameObject;
         spellSpawn = Instantiate(spellSpawnPrefab, transform);
@@ -36,6 +36,7 @@ public class PlayerCombat : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftShift) && (Input.GetMouseButtonDown(1) || Input.GetMouseButton(1)))
         {
+            GetActiveSpell();
 
             if (Time.time >= timeToNextAttack)
             {
@@ -47,9 +48,34 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
-    //TODO: Get the active spell from the UI Active Spell Button (Implement this on each class's Attack method).
-    protected virtual void Attack()
+    void Attack()
     {
-        
+        if (playerResource.CurrentResource >= activeSpell.ResourceCost)
+        {
+            Instantiate(activeSpellPrefab, spellSpawnLocation.position, spellSpawnLocation.rotation);
+
+            playerResource.GenerateResourceOnSpellCast(activeSpell.ResourceGenerate);
+            playerResource.SpendResourceOnSpellCast(activeSpell.ResourceCost);
+        }
+        else
+        {
+            //TODO: Display UI Text saying "Not enough [ResourceName]."
+            Debug.Log("Not enough " + playerResource.ResourceName);
+        }
+    }
+
+    private GameObject GetActiveSpell()
+    {
+        for (int i = 0; i < spells.Count; i++)
+        {
+            if (spells[i].IsActive)
+            {
+                activeSpellName = spells[i].SpellName;
+                activeSpell = spells[i];
+            }
+        }
+
+        activeSpellPrefab = Resources.Load("Prefabs/" + activeSpellName) as GameObject;
+        return activeSpellPrefab;
     }
 }

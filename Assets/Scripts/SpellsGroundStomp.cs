@@ -8,8 +8,8 @@ public class SpellsGroundStomp : Spells
 
     void Start()
     {
-        Damage = 50;
-        Range = 20;
+        Damage = 30;
+        Range = 10;
 
         Collider[] enemyList = Physics.OverlapSphere(transform.position, Range);
 

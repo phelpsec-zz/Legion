@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class BarbarianStats : PlayerStats
 {
-    private UIController uiController;
+    private UIDeathScreen uiController;
 
     private void Awake()
     {
-        uiController = GameObject.Find("UI").GetComponent<UIController>();
+        uiController = GameObject.Find("UI").GetComponent<UIDeathScreen>();
     }
 
     void Start()

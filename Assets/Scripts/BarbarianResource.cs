@@ -37,8 +37,5 @@ public class BarbarianResource : PlayerResource
 
         CurrentResource = CurrentResource < 0 ? 0 : CurrentResource;
         CurrentResource = CurrentResource > 100 ? 100 : CurrentResource;
-
-        float resourcePercentage = CurrentResource / 100;
-        resourceBar.transform.localScale = new Vector3(resourcePercentage, resourceBar.transform.localScale.y, resourceBar.transform.localScale.z);
     }
 }
