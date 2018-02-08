@@ -3,8 +3,8 @@ using System.Collections;
 
 public class SpellsGroundStomp : Spells
 {
-    private SpellsGroundStomp(string spellName, bool isActive, int resourceCost, int resourceGenerate) 
-        : base(spellName, isActive, resourceCost, resourceGenerate) { }
+    private SpellsGroundStomp(string spellName, bool isActive, int resourceCost, int resourceGenerate, string typeOfSpell) 
+        : base(spellName, isActive, resourceCost, resourceGenerate, typeOfSpell) { }
 
     void Start()
     {

@@ -3,8 +3,8 @@ using System.Collections;
 
 public class SpellsFireball : Spells
 {
-    private SpellsFireball(string spellName, bool isActive, int resourceCost, int resourceGenerate) 
-        : base(spellName, isActive, resourceCost, resourceGenerate) { }
+    private SpellsFireball(string spellName, bool isActive, int resourceCost, int resourceGenerate, string typeOfSpell) 
+        : base(spellName, isActive, resourceCost, resourceGenerate, typeOfSpell) { }
 
     private Vector3 startPosition;
 

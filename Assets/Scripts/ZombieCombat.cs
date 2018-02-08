@@ -3,9 +3,6 @@ using System.Collections;
 
 public class ZombieCombat : EnemyCombat
 {
-    private float meleeHitDistance = 6;
-    private RaycastHit hit;
-    private Ray meleeRay;
 
     void Start()
     {
@@ -19,13 +16,17 @@ public class ZombieCombat : EnemyCombat
     public override void Attack()
     {
         Damage = Random.Range(10, 19);
-        meleeRay = new Ray(transform.position, transform.forward);       
 
-        if (Physics.Raycast(meleeRay, out hit, meleeHitDistance))
+        int meleeHitDistance = 6;
+        RaycastHit[] hits = Physics.RaycastAll(transform.position, transform.forward, meleeHitDistance); ;       
+
+        Debug.DrawRay(transform.position, transform.forward * meleeHitDistance, Color.red, 0.25f);
+
+        for (int i = 0; i < hits.Length; i++)
         {
-            if (hit.collider.tag == "Player")
+            if (hits[i].collider.tag == "Player")
             {
-                PlayerHealth playerHealth = hit.collider.gameObject.GetComponent<PlayerHealth>();
+                PlayerHealth playerHealth = hits[i].collider.gameObject.GetComponent<PlayerHealth>();
                 playerHealth.TakeDamage(Damage);
             }
         }

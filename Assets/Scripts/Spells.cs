@@ -14,13 +14,15 @@ public class Spells : MonoBehaviour
     public int ResourceCost { get; set; }
     public int ResourceGenerate { get; set; }
     public int Cooldown { get; set; }
+    public string TypeOfSpell { get; set; }
 
-    public Spells(string spellName, bool isActive, int resourceCost, int resourceGenerate)
+    public Spells(string spellName, bool isActive, int resourceCost, int resourceGenerate, string typeOfSpell)
     {
-        this.SpellName = spellName;
-        this.IsActive = isActive;
-        this.ResourceCost = resourceCost;
-        this.ResourceGenerate = resourceGenerate;
+        SpellName = spellName;
+        IsActive = isActive;
+        ResourceCost = resourceCost;
+        ResourceGenerate = resourceGenerate;
+        TypeOfSpell = typeOfSpell;
     }
 
 }

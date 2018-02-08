@@ -22,6 +22,8 @@ public class PlayerCombat : MonoBehaviour
     protected string activeSpellName;
     protected GameObject activeSpellPrefab;
 
+    private Vector3 destinationPosition;
+
     void Awake()
     {
         spellSpawnPrefab = Resources.Load("Prefabs/Spell Spawn") as GameObject;
@@ -72,7 +74,27 @@ public class PlayerCombat : MonoBehaviour
             {
                 activeSpellName = spells[i].SpellName;
                 activeSpell = spells[i];
-            }
+
+                if (spells[i].TypeOfSpell == "Target")
+                {
+                    Debug.Log("we are here");
+
+                    Plane playerPlane = new Plane(Vector3.up, transform.position);
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    float distance;
+
+                    if (playerPlane.Raycast(ray, out distance))
+                    {
+                        destinationPosition = ray.GetPoint(distance);
+                    }
+
+                    spellSpawnLocation.position = destinationPosition;
+                }
+                else
+                {
+                    spellSpawnLocation.position = transform.position;
+                }
+            }           
         }
 
         activeSpellPrefab = Resources.Load("Prefabs/" + activeSpellName) as GameObject;
