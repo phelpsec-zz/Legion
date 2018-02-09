@@ -5,7 +5,7 @@ public class SpellsBlink : MonoBehaviour
 {
     private GameObject player;
 
-    private void Awake()
+    void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
     }
@@ -16,5 +16,4 @@ public class SpellsBlink : MonoBehaviour
 
         Destroy(gameObject);
     }
-
 }

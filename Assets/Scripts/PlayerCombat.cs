@@ -16,8 +16,8 @@ public class PlayerCombat : MonoBehaviour
     protected GameObject player;
     protected PlayerResource playerResource;
 
-    public List<Spells> spells;
-    public Spells activeSpell;
+    public List<PlayerSpells> spells;
+    public PlayerSpells activeSpell;
 
     protected string activeSpellName;
     protected GameObject activeSpellPrefab;
@@ -38,10 +38,10 @@ public class PlayerCombat : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftShift) && (Input.GetMouseButtonDown(1) || Input.GetMouseButton(1)))
         {
-            GetActiveSpell();
-
             if (Time.time >= timeToNextAttack)
             {
+                GetActiveSpell();
+
                 //TODO: Implement specific spell cooldowns into the timeToNextAttack formula.
                 timeToNextAttack = Time.time + globalCooldownTimer;
 
@@ -77,8 +77,6 @@ public class PlayerCombat : MonoBehaviour
 
                 if (spells[i].TypeOfSpell == "Target")
                 {
-                    Debug.Log("we are here");
-
                     Plane playerPlane = new Plane(Vector3.up, transform.position);
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                     float distance;

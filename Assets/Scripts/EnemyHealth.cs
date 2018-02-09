@@ -61,6 +61,11 @@ public class EnemyHealth : MonoBehaviour
         currentHealth -= damageAmount;
     }
 
+    public void TakeOverTimeDamage(float damageAmount)
+    {
+        currentHealth -= damageAmount * Time.deltaTime;
+    }
+
     void Death()
     {
         Destroy(enemyHealthBar);

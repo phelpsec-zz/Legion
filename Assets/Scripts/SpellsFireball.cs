@@ -1,26 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpellsFireball : Spells
+public class SpellsFireball : MonoBehaviour
 {
-    private SpellsFireball(string spellName, bool isActive, int resourceCost, int resourceGenerate, string typeOfSpell) 
-        : base(spellName, isActive, resourceCost, resourceGenerate, typeOfSpell) { }
+    private int damage;
+    private int range;
+    private int speed;
 
-    private Vector3 startPosition;
+    private Vector3 startPosition;  
 
     void Start()
     {
-        Damage = Random.Range(20, 31);
-        Speed = 50;
-        Range = 40;
+        //TODO: Get PlayerStats stats and level to calculate damage.
+        damage = Random.Range(20, 31);
+        range = 40;
+        speed = 50;
 
         startPosition = transform.position;
-        GetComponent<Rigidbody>().velocity = transform.forward * Speed;
+        GetComponent<Rigidbody>().velocity = transform.forward * speed;
     }
 
     void Update()
     {
-        if (Vector3.Distance(transform.position, startPosition) >= Range)
+        if (Vector3.Distance(transform.position, startPosition) >= range)
         {
             Destroy(gameObject);
         }
@@ -31,7 +33,7 @@ public class SpellsFireball : Spells
         if (other.tag == "Enemy")
         {
             EnemyHealth enemyHealth = other.gameObject.GetComponent<EnemyHealth>();
-            enemyHealth.TakeDamage(Damage);
+            enemyHealth.TakeDamage(damage);
 
             Destroy(gameObject);
         }

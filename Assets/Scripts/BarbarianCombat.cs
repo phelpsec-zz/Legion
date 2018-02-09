@@ -4,10 +4,12 @@ using System.Collections.Generic;
 
 public class BarbarianCombat : PlayerCombat
 {  
+    //PlayerSpells (SpellName, IsActive, TypeOfSpell, ResourceCost, ResourceGenerate)
+
     void Start()
     {
-        spells = new List<Spells>();
-        spells.Add(new Spells("Bash", true, 0, 0, ""));
-        spells.Add(new Spells("Ground Stomp", false, 10, 0, ""));
+        spells = new List<PlayerSpells>();
+        spells.Add(new PlayerSpells("Bash", true, "", 0, 0));
+        spells.Add(new PlayerSpells("Ground Stomp", false, "", 25, 0));
     }
 }

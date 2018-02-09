@@ -1,24 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpellsGroundStomp : Spells
+public class SpellsGroundStomp : MonoBehaviour
 {
-    private SpellsGroundStomp(string spellName, bool isActive, int resourceCost, int resourceGenerate, string typeOfSpell) 
-        : base(spellName, isActive, resourceCost, resourceGenerate, typeOfSpell) { }
 
     void Start()
     {
-        Damage = 30;
-        Range = 10;
+        int damage = 30;
+        int range = 10;
 
-        Collider[] enemyList = Physics.OverlapSphere(transform.position, Range);
+        Collider[] enemyList = Physics.OverlapSphere(transform.position, range);
 
         foreach (Collider enemy in enemyList)
         {      
             if (enemy.tag == "Enemy")
             {
                 EnemyHealth enemyHealth = enemy.gameObject.GetComponent<EnemyHealth>();
-                enemyHealth.TakeDamage(Damage);
+                enemyHealth.TakeDamage(damage);
             }
         }
 

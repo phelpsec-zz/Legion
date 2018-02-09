@@ -3,25 +3,18 @@ using System.Collections;
 
 public class SpellsBash : MonoBehaviour
 {
-    private GameObject player;
-    private PlayerResource playerResource;
-
-    void Awake()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerResource = player.GetComponent<PlayerResource>();
-    }
 
     void Start()
-    {
-        RaycastHit[] hits;
-        int damage = Random.Range(30, 51);
-        int generateResource = 8;
-        int meleeHitDistance = 6;
+    {        
+        //TODO: Get PlayerStats and calculate what the damage should be.
+        int damage = Random.Range(15, 21);
+        int range = 6;
+        int generateResourceOnHit = 8;
 
-        Debug.DrawRay(transform.position, transform.forward * meleeHitDistance, Color.red, 0.25f);
+        RaycastHit[] hits = Physics.RaycastAll(transform.position, transform.forward, range);
 
-        hits = Physics.RaycastAll(transform.position, transform.forward, meleeHitDistance);
+        //TODO: Remove DrawRay - this is to show the range in the inspector during live gameplay.
+        Debug.DrawRay(transform.position, transform.forward * range, Color.red, 0.25f);
 
         for (int i = 0; i < hits.Length; i++)
         {
@@ -30,7 +23,9 @@ public class SpellsBash : MonoBehaviour
                 EnemyHealth enemyHealth = hits[i].collider.gameObject.GetComponent<EnemyHealth>();
                 enemyHealth.TakeDamage(damage);
 
-                playerResource.GenerateResourceOnHitDealt(generateResource);
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                PlayerResource playerResource = player.GetComponent<PlayerResource>();
+                playerResource.GenerateResourceOnHitDealt(generateResourceOnHit);
             }
         }
 

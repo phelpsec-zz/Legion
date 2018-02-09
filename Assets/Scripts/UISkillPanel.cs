@@ -60,20 +60,12 @@ public class UISkillPanel : MonoBehaviour
     void SetActiveSpell(GameObject skillButton)
     {
         Debug.Log("You selected " + skillButton.name);
-
         activeSkillButton.GetComponent<Button>().image.color = skillButton.GetComponent<Button>().image.color;
 
         for (int j = 0; j < playerCombat.spells.Count; j++)
         {
-            if (playerCombat.spells[j].IsActive)
-            {
-                playerCombat.spells[j].IsActive = false;
-            }
-
-            if (playerCombat.spells[j].SpellName == skillButton.name)
-            {
-                playerCombat.spells[j].IsActive = true;
-            }
+            playerCombat.spells[j].IsActive = (playerCombat.spells[j].IsActive) ? false : playerCombat.spells[j].IsActive;
+            playerCombat.spells[j].IsActive = (playerCombat.spells[j].SpellName == skillButton.name) ? true : playerCombat.spells[j].IsActive;
         }
 
         HideSkillPanel();
