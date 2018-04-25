@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private bool IsMoving { get; set; }
+
     private Vector3 destinationPosition;
     private PlayerHealth healthManager;
 
@@ -28,11 +30,13 @@ public class PlayerMovement : MonoBehaviour
         {
             if ((Input.GetMouseButtonDown(1) || Input.GetMouseButton(1)) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
             {
+                IsMoving = true;
                 LookAtMousePosition();
             }
 
             if (Input.GetKey(KeyCode.LeftShift))
             {
+                IsMoving = false;
                 LookAtMousePosition();
 
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -40,14 +44,23 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                transform.position = Vector3.MoveTowards(transform.position, destinationPosition, MovementSpeed * Time.deltaTime);
+                if (IsMoving)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, destinationPosition, MovementSpeed * Time.deltaTime);
+
+                    if (destinationPosition == transform.position)
+                    {
+                        IsMoving = false;
+                    }
+                }
             }
         }
         else
         {
+            IsMoving = false;
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             destinationPosition = transform.position;
-        }
+        }       
     }
 
     void LookAtMousePosition()

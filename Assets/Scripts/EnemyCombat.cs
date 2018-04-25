@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyCombat : MonoBehaviour
+public abstract class EnemyCombat : MonoBehaviour
 {
     private float nextAttackTimer;
     private float rangeToAttack;
@@ -53,8 +53,5 @@ public class EnemyCombat : MonoBehaviour
         }
     }
 
-    public virtual void Attack()
-    {
-
-    }
+    public abstract void Attack();
 }

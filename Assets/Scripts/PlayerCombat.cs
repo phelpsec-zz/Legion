@@ -8,6 +8,7 @@ public class PlayerCombat : MonoBehaviour
 
     private float timeToNextAttack;
     private float globalCooldownTimer = 0.5f;
+    private float[] tests = new float[] { 1, 2, 3 } ;
 
     protected GameObject spellSpawnPrefab;
     protected GameObject spellSpawn;
@@ -15,6 +16,7 @@ public class PlayerCombat : MonoBehaviour
 
     protected GameObject player;
     protected PlayerResource playerResource;
+    protected PlayerHealth playerHealth;
 
     public List<PlayerSpells> spells;
     public PlayerSpells activeSpell;
@@ -32,21 +34,25 @@ public class PlayerCombat : MonoBehaviour
 
         player = GameObject.FindGameObjectWithTag("Player");
         playerResource = player.GetComponent<PlayerResource>();
+        playerHealth = player.GetComponent<PlayerHealth>();
     }
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftShift) && (Input.GetMouseButtonDown(1) || Input.GetMouseButton(1)))
+        if (!playerHealth.IsRespawning)
         {
-            if (Time.time >= timeToNextAttack)
+            if (Input.GetKey(KeyCode.LeftShift) && (Input.GetMouseButtonDown(1) || Input.GetMouseButton(1)))
             {
-                GetActiveSpell();
+                if (Time.time >= timeToNextAttack)
+                {
+                    GetActiveSpell();
 
-                //TODO: Implement specific spell cooldowns into the timeToNextAttack formula.
-                timeToNextAttack = Time.time + globalCooldownTimer;
+                    //TODO: Implement specific spell cooldowns into the timeToNextAttack formula.
+                    timeToNextAttack = Time.time + globalCooldownTimer;
 
-                Attack();
-            }                 
+                    Attack();
+                }
+            }
         }
     }
 

@@ -7,9 +7,9 @@ public class SpellsGroundStomp : MonoBehaviour
     void Start()
     {
         int damage = 30;
-        int range = 10;
+        int radius = 10;
 
-        Collider[] enemyList = Physics.OverlapSphere(transform.position, range);
+        Collider[] enemyList = Physics.OverlapSphere(transform.position, radius);
 
         foreach (Collider enemy in enemyList)
         {      
